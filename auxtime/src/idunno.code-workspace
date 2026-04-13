@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "neurofinal",
+			"path": "../.."
+		},
+		{
+			"name": "auxtime",
+			"path": "../../../../PlatformIO/Projects/auxtime"
+		}
+	],
+	"settings": {}
+}
