@@ -13,17 +13,17 @@ import serial
 import time
 
 # --- CONFIG ---
-SERIAL_PORT = "/dev/tty.usbmodem1101"  # <-- you'll update this in Step 6
+SERIAL_PORT = "/dev/tty.usbmodem1101"  #this is the serial port for the arduino
 BAUD_RATE = 9600
 SAMPLE_RATE = 16000
 BUFFER_SIZE = 2048
-FOCUSRITE_INPUT_CHANNEL = 1  # Input 2 = index 1 (zero-based)
+FOCUSRITE_INPUT_CHANNEL = 1  # Input 2 = index 1
 SILENCE_THRESHOLD = 0.01
-CONFIDENCE_THRESHOLD = 0.8   # 0.0 to 1.0, higher = stricter
+CONFIDENCE_THRESHOLD = 0.8   # 0.0 to 1.0, higher = stricter, will have to edit this
 
 NOTE_NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
 
-def hz_to_note(freq):
+def hz_to_note(freq): # converts frequency to note name and octave, will have to tweak this
     if freq <= 0:
         return None
     midi = 69 + 12 * np.log2(freq / 440.0)
@@ -31,27 +31,27 @@ def hz_to_note(freq):
     octave = (int(round(midi)) // 12) - 1
     return f"{note}{octave}"
 
-def find_focusrite():
+def find_focusrite(): #finds the audio interface
     devices = sd.query_devices()
     for i, d in enumerate(devices):
         if "scarlett" in d['name'].lower() or "focusrite" in d['name'].lower():
             if d['max_input_channels'] > 0:
-                print(f"✓ Found Focusrite: [{i}] {d['name']}")
+                print(f"Found Focusrite: [{i}] {d['name']}")
                 return i
-    print("✗ Focusrite not found. Available input devices:")
+    print("Focusrite not found. Available input devices:")
     for i, d in enumerate(devices):
         if d['max_input_channels'] > 0:
             print(f"  [{i}] {d['name']}")
     raise RuntimeError("Plug in your Focusrite and try again.")
 
-# --- Connect to Arduino ---
+# Connect to Arduino
 try:
     ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
     time.sleep(2)
-    print(f"✓ Arduino connected on {SERIAL_PORT}")
+    print(f"Arduino connected on {SERIAL_PORT}")
 except Exception as e:
-    print(f"✗ Could not connect to Arduino: {e}")
-    print("  Check your SERIAL_PORT setting in the script.")
+    print(f"Could not connect to Arduino: {e}")
+    print("Check your SERIAL_PORT setting in the script.")
     exit()
 
 last_note = None
