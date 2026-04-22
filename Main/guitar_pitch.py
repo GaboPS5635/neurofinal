@@ -9,8 +9,10 @@
 # 4. Upload the Arduino sketch via Arduino IDE
 # 5. Run the Python script — strum a note and watch the terminal
 
+
 # Finding your serial port:
 # Mac: ls/dev/tty.* in terminal
+# batch run: python3 ~/Documents/GitHub/neurofinal/main/guitar_pitch.py
 
 import sounddevice as sd
 import numpy as np
@@ -25,7 +27,7 @@ SAMPLE_RATE = 16000
 BUFFER_SIZE = 4096
 FOCUSRITE_INPUT_CHANNEL = 1  # Input 2 = index 1
 SILENCE_THRESHOLD = 0.005
-CONFIDENCE_THRESHOLD = 0.8   # 0.0 to 1.0, higher = stricter, will have to edit this
+CONFIDENCE_THRESHOLD = 0.6   # 0.0 to 1.0, higher = stricter, will have to edit this
 
 NOTE_NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
 
