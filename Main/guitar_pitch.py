@@ -22,9 +22,9 @@ import time
 SERIAL_PORT = "/dev/tty.usbmodem1101"  #this is the serial port for the arduino
 BAUD_RATE = 9600
 SAMPLE_RATE = 16000
-BUFFER_SIZE = 2048
+BUFFER_SIZE = 4096
 FOCUSRITE_INPUT_CHANNEL = 1  # Input 2 = index 1
-SILENCE_THRESHOLD = 0.01
+SILENCE_THRESHOLD = 0.005
 CONFIDENCE_THRESHOLD = 0.8   # 0.0 to 1.0, higher = stricter, will have to edit this
 
 NOTE_NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
