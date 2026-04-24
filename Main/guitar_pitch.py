@@ -13,6 +13,7 @@
 # Finding your serial port:
 # Mac: ls/dev/tty.* in terminal
 # batch run: python3 /Users/gabopage/Documents/GitHub/neurofinal/main/guitar_pitch.py
+#python3 /Users/gabopage/Documents/GitHub/neurofinal/main/guitar_pitch.py
 
 import sounddevice as sd
 import numpy as np
@@ -24,10 +25,10 @@ import time
 SERIAL_PORT = "/dev/tty.usbmodem1101"  #this is the serial port for the arduino
 BAUD_RATE = 9600
 SAMPLE_RATE = 16000
-BUFFER_SIZE = 4096
+BUFFER_SIZE = 8192 
 FOCUSRITE_INPUT_CHANNEL = 1  # Input 2 = index 1
-SILENCE_THRESHOLD = 0.005
-CONFIDENCE_THRESHOLD = 0.6   # 0.0 to 1.0, higher = stricter, will have to edit this
+SILENCE_THRESHOLD = 0.0008
+CONFIDENCE_THRESHOLD = 0.5   # 0.0 to 1.0, higher = stricter, will have to edit this
 
 NOTE_NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
 
@@ -72,7 +73,7 @@ def audio_callback(indata, frames, time_info, status):
         return
 
     _, frequency, confidence, _ = crepe.predict(
-        channel_data, SAMPLE_RATE, viterbi=True, verbose=0
+        channel_data, SAMPLE_RATE, viterbi=True, verbose=0, model_capacity='medium'
     )
     freq = float(frequency[0])
     conf = float(confidence[0])
