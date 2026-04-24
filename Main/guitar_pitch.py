@@ -12,7 +12,7 @@
 
 # Finding your serial port:
 # Mac: ls/dev/tty.* in terminal
-# batch run: python3 ~/Documents/GitHub/neurofinal/main/guitar_pitch.py
+# batch run: python3 /Users/gabopage/Documents/GitHub/neurofinal/main/guitar_pitch.py
 
 import sounddevice as sd
 import numpy as np
